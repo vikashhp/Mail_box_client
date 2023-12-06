@@ -3,6 +3,7 @@ import Signup from "./components/SignupPage/Signup";
 import Login from "./components/Login/Login";
 import { Route } from "react-router-dom";
 import Nvabars from './components/Navbar/Navbar';
+import WelcomePage from "./components/WelcomePage/Welcome";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       </Route>
       <Route path="/login">
         <Login />
+      </Route>
+      <Route path='/welcome'>
+       <WelcomePage/>
       </Route>
     </div>
   );

@@ -51,7 +51,6 @@ const Signup = () => {
       console.log(response);
       console.log("user has successFully Logged in");
       alert("Successfuly Signup! Login To Continue");
-     
     } catch (err) {
       console.log(err);
     }
@@ -108,7 +107,7 @@ const Signup = () => {
                     </Form.Group>
                   </Row>
 
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">Signup</Button>
                 </Form>
               </Card.Body>
             </Card>
@@ -123,9 +122,9 @@ const Signup = () => {
               <Card.Header style={{ backgroundColor: " rgb(151, 118, 251)" }}>
                 <h3>
                   <span>Have an account ?</span>
-                
-                      <span>Login</span>
-                 
+                  <NavLink to='/login'>
+                    <span>Login</span>
+                  </NavLink>
                 </h3>
               </Card.Header>
             </Card>
