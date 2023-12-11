@@ -1,0 +1,16 @@
+
+.email_body{
+    display: flex;
+   justify-content: space-around;
+
+    border:1px solid red;
+   
+  
+}
+
+.center{
+    margin-left: 150px;
+}
+.right{
+    margin-left: 500px;
+}

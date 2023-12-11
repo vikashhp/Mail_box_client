@@ -38,7 +38,7 @@ const Login = () => {
       if (res.ok) {
         await res.json();
         alert('Successfully Login')
-        history.replace('/welcome')
+        history.replace('/view_mail')
       } else {
         return res.json().then((data) => {
           let errmessage = "Authentication Failed";
