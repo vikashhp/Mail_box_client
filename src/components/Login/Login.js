@@ -9,11 +9,14 @@ import { useRef } from "react";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { composeActions } from "../Store/ComposeVisible";
 
 const Login = () => {
   const inputEmail = useRef();
   const inputPassword = useRef();
  const history = useHistory();
+const dispatch= useDispatch()
   const loginHandler = async (event) => {
     event.preventDefault();
     const enteredEmail = inputEmail.current.value;
@@ -39,6 +42,7 @@ const Login = () => {
         await res.json();
         alert('Successfully Login')
         history.replace('/view_mail')
+        dispatch(composeActions.login())
       } else {
         return res.json().then((data) => {
           let errmessage = "Authentication Failed";

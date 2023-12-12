@@ -10,7 +10,16 @@
 
 .center{
     margin-left: 150px;
+ 
+    font-size: 20px;
 }
 .right{
     margin-left: 500px;
+}
+.email{
+    font-size: 20px;
+}
+.dotimage{
+    width:10px;
+    margin-right: 10px;
 }

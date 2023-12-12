@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { showCompose: false };
+const initialState = { showCompose: false,showDotImage:true,selectedMail:null};
 
 const composeSlice = createSlice({
   name: "ComposeVisible",
@@ -11,7 +11,14 @@ const composeSlice = createSlice({
     },
     NotVisible(state){
         state.showCompose=false;
+    },
+    dotimageVisible(state){
+     state.showDotImage=false;
+    },
+    IsSelectedMail(state,action){
+      state.selectedMail=action.payload
     }
+   
   },
 });
 

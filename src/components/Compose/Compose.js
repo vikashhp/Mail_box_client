@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -16,8 +16,7 @@ import { useState } from "react";
 import { db } from "../WelcomePage/firebaseCode";
 import { collection, addDoc } from "@firebase/firestore";
 
-
-const Compose = () => {
+const Compose = (props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -54,8 +53,7 @@ const Compose = () => {
       email,
       subject,
       message,
-     
-    }
+    };
 
     try {
       addDoc(database, data);
@@ -63,10 +61,11 @@ const Compose = () => {
     } catch (err) {
       console.log(err);
     }
-    setEmail('');
-    setMessage('');
-    setSubject('');
+    setEmail("");
+    setMessage("");
+    setSubject("");
     // dispatch(composeActions.NotVisible());
+    console.log(props.data);
   };
 
   const closeHandler = () => {

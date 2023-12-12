@@ -8,32 +8,21 @@ import Compose from "../Compose/Compose";
 import { useDispatch } from "react-redux";
 import { composeActions } from "../Store/ComposeVisible";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { db } from "../WelcomePage/firebaseCode";
-import { collection, getDocs } from "firebase/firestore";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const Viewmail = () => {
+const Viewmail = (props) => {
   const dispatch = useDispatch();
   const composeVisible = useSelector((state) => state.isVisible.showCompose);
 
-  const [email, setEmail] = useState([]);
+  const  src="https://tse2.mm.bing.net/th?id=OIP.Z07pJmyXhkAXwjUvjS2vhwHaHa&pid=Api&P=0&h=180";
 
-  useEffect(async () => {
-    const querySnapshot = await getDocs(collection(db, "emails"));
-    querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-      setEmail((prev) => {
-        return [...prev, doc.data()];
-      });
-    });
-  }, []);
+
 
   // console.log(email);
 
-  
   // console.log(email.length)
 
   const ComposeHandler = () => {
@@ -67,7 +56,7 @@ const Viewmail = () => {
             <Button onClick={ComposeHandler}>Compose</Button>
           </div>
           <div>
-            <SidebarOptions title="inbox" number={email.length} />
+            <SidebarOptions title="inbox" number={props.data.length} />
           </div>
           <div>
             <SidebarOptions title="Draft" number="14" />
@@ -76,7 +65,7 @@ const Viewmail = () => {
             <SidebarOptions title="Unread" number="20" />
           </div>
           <div>
-            <SidebarOptions title="Sent" number="2" />
+            <SidebarOptions title="Sent" number={props.data.length} />
           </div>
           <div>
             <SidebarOptions title="Span" number="100" />
@@ -86,12 +75,13 @@ const Viewmail = () => {
           </div>
         </div>
         <div>
-          {email.map((data) => {
+        {props.data.map((data) => {
             return (
               <EmailList
                 email={data.email}
                 message={data.message}
                 subject={data.subject}
+                src={src}
               />
             );
           })}
