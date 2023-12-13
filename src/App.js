@@ -6,24 +6,24 @@ import Nvabars from "./components/Navbar/Navbar";
 
 import Viewmail from "./components/View_mail/Viewmail";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { db } from "../src/components/WelcomePage/firebaseCode";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
+
 import MailDetail from "./components/MailDetail/MailDetail";
 
 function App() {
-  const [email, setEmail] = useState([]);
 
-  useEffect(async () => {
-    const querySnapshot = await getDocs(collection(db, "emails"));
-    querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-      setEmail((prev) => {
-        return [...prev, doc.data()];
-      });
-    });
-  }, []);
+
+  // useEffect(async () => {
+  //   const querySnapshot = await getDocs(collection(db, "emails"));
+  //   querySnapshot.forEach((doc) => {
+  //     // console.log(`${doc.id} => ${doc.data()}`);
+  //     setEmail((prev) => {
+  //       return [...prev, doc.data()];
+  //     });
+  //     // console.log(doc.id)
+  //   });
+  // }, []);
+
+ 
 
   const isLogin = useSelector((state) => state.isVisible.isLogin);
   return (
@@ -40,7 +40,7 @@ function App() {
         </Route>
 
         <Route path="/view_mail">
-          <Viewmail data={email} />
+          <Viewmail />
         </Route>
         <Route path="/mail_detail">
           <MailDetail />

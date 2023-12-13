@@ -7,10 +7,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import CloseButton from "react-bootstrap/CloseButton";
-
 import { useDispatch } from "react-redux";
 import { composeActions } from "../Store/ComposeVisible";
-
 import { Fragment } from "react";
 import { useState } from "react";
 import { db } from "../WelcomePage/firebaseCode";
@@ -65,7 +63,6 @@ const Compose = (props) => {
     setMessage("");
     setSubject("");
     // dispatch(composeActions.NotVisible());
-    console.log(props.data);
   };
 
   const closeHandler = () => {
@@ -73,14 +70,7 @@ const Compose = (props) => {
   };
   return (
     <Fragment>
-      <Card
-        style={{
-          width: "50%",
-          height: "420px",
-          marginLeft: "50%",
-          marginTop: "20px",
-        }}
-      >
+      <Card>
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container style={{ backgroundColor: "black" }}>
             <Navbar.Brand style={{ color: "white" }}>New Message</Navbar.Brand>

@@ -1,25 +1,21 @@
 
-.email_body{
-    display: flex;
-   justify-content: space-around;
 
-    border:1px solid red;
-   
-  
-}
+.dotimage{
+    width:10px;
+    margin-right:5px;
+} 
 
-.center{
-    margin-left: 150px;
+/* .center{
+    margin-left:10%;
  
-    font-size: 20px;
+   
 }
-.right{
-    margin-left: 500px;
+.right :last-child{
+   display:flex;
+
 }
 .email{
     font-size: 20px;
+ margin-right: 5%;
 }
-.dotimage{
-    width:10px;
-    margin-right: 10px;
-}
+*/

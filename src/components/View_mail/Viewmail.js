@@ -8,26 +8,36 @@ import Compose from "../Compose/Compose";
 import { useDispatch } from "react-redux";
 import { composeActions } from "../Store/ComposeVisible";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { db } from "../WelcomePage/firebaseCode";
+import { collection, getDocs,  onSnapshot} from "firebase/firestore";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 const Viewmail = (props) => {
+
   const dispatch = useDispatch();
+  const [email, setEmail] = useState([]);
+   useEffect(() => {
+    const collRef = collection(db, "emails");
+    const unsubs = onSnapshot(collRef, (querySnapshot) => {
+      const data = querySnapshot.docs.map((query) => {
+        return { ...query.data(), id: query.id };
+      });
+      setEmail(data);
+    });
+    return unsubs;
+  
+  
+  }, []);
   const composeVisible = useSelector((state) => state.isVisible.showCompose);
 
-  const  src="https://tse2.mm.bing.net/th?id=OIP.Z07pJmyXhkAXwjUvjS2vhwHaHa&pid=Api&P=0&h=180";
-
-
-
-  // console.log(email);
-
-  // console.log(email.length)
+  const src =
+    "https://tse2.mm.bing.net/th?id=OIP.Z07pJmyXhkAXwjUvjS2vhwHaHa&pid=Api&P=0&h=180";
 
   const ComposeHandler = () => {
     dispatch(composeActions.composeIsVisible());
   };
+
   return (
     <Fragment>
       <div className="top">
@@ -36,19 +46,6 @@ const Viewmail = (props) => {
           <input className="input" placeholder="search..." />
         </div>
       </div>
-      <Container>
-        <Row>
-          <Col>
-            <h2>Email</h2>
-          </Col>
-          <Col>
-            <h2>Message</h2>
-          </Col>
-          <Col>
-            <h2>Subject</h2>
-          </Col>
-        </Row>
-      </Container>
 
       <div className="main">
         <div className="side_body">
@@ -56,7 +53,7 @@ const Viewmail = (props) => {
             <Button onClick={ComposeHandler}>Compose</Button>
           </div>
           <div>
-            <SidebarOptions title="inbox" number={props.data.length} />
+            <SidebarOptions title="inbox" number={email.length} />
           </div>
           <div>
             <SidebarOptions title="Draft" number="14" />
@@ -65,7 +62,7 @@ const Viewmail = (props) => {
             <SidebarOptions title="Unread" number="20" />
           </div>
           <div>
-            <SidebarOptions title="Sent" number={props.data.length} />
+            <SidebarOptions title="Sent" number={email.length} />
           </div>
           <div>
             <SidebarOptions title="Span" number="100" />
@@ -74,14 +71,18 @@ const Viewmail = (props) => {
             <SidebarOptions title="Deleted Items" number="23" />
           </div>
         </div>
+
         <div>
-        {props.data.map((data) => {
+          {email.map((data) => {
+            console.log(data)
             return (
               <EmailList
+                key={data.id}
                 email={data.email}
                 message={data.message}
                 subject={data.subject}
                 src={src}
+                id={data.id}
               />
             );
           })}

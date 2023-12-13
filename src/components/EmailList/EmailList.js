@@ -5,55 +5,72 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import { useDispatch } from "react-redux";
-// import { useState } from "react";
-// import { db } from "../src/components/WelcomePage/firebaseCode";
-// import { collection, getDocs } from "firebase/firestore";
-// import { useEffect } from "react";
 import { composeActions } from "../Store/ComposeVisible";
 import { useSelector } from "react-redux";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../WelcomePage/firebaseCode";
+
 
 const EmailList = (props) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const showDot = useSelector((state) => state.isVisible.showDotImage);
-
-
-
-  const messageDetailHandler = () => {
-    history.push("/mail_detail");
-    dispatch(composeActions.dotimageVisible());
-    dispatch(composeActions.IsSelectedMail({
-      email:props.email,
-      message:props.message,
-      subject:props.subject
-    }))
-  };
-  // const [email, setEmail] = useState([]);
-
+  // const [id,setEvent]=useState([])
   // useEffect(async () => {
   //   const querySnapshot = await getDocs(collection(db, "emails"));
   //   querySnapshot.forEach((doc) => {
   //     // console.log(`${doc.id} => ${doc.data()}`);
-  //     setEmail((prev) => {
-  //       return [...prev, doc.data()];
-  //     });
+  //     setEvent(doc.id);
+  //     // console.log(doc.id)
   //   });
   // }, []);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const showDot = useSelector((state) => state.isVisible.showDotImage);
+
+  const messageDetailHandler = () => {
+    history.push("/mail_detail");
+    dispatch(composeActions.dotimageVisible());
+    dispatch(
+      composeActions.IsSelectedMail({
+        email: props.email,
+        message: props.message,
+        subject: props.subject,
+      })
+    );
+  };
+
+  const deleteDataHandler = (id) => {
+    deleteDoc(doc(db, "emails", id))
+      .then(() => {
+        alert("Deleted SuccessFully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(props.id);
+
   return (
     <Fragment>
       <ListGroup>
         <Button variant="light" onClick={messageDetailHandler}>
           <ListGroup.Item>
-            <span>
-              {showDot && <img className="dotimage" src={props.src} />}
-            </span>
+            {showDot && <img className="dotimage" src={props.src} />}
 
-            <span className="email">{props.email}</span>
+            <h5>Email - {props.email}</h5>
 
-            <span className="center">{props.message}</span>
+            <p>Message - {props.message}</p>
 
-            <span className="right">{props.subject}</span>
+            <h4>Subject - {props.subject}</h4>
           </ListGroup.Item>
+        </Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            deleteDataHandler(props.id);
+          }}
+        >
+          Delete
         </Button>
       </ListGroup>
     </Fragment>

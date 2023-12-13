@@ -16,7 +16,7 @@ const composeSlice = createSlice({
      state.showDotImage=false;
     },
     IsSelectedMail(state,action){
-      state.selectedMail=action.payload
+      state.selectedMail=action.payload;
     }
    
   },
