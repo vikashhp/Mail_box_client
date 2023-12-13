@@ -12,6 +12,7 @@ const composeSlice = createSlice({
     NotVisible(state){
         state.showCompose=false;
     },
+    
     dotimageVisible(state){
      state.showDotImage=false;
     },

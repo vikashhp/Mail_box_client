@@ -119,7 +119,7 @@ const Compose = (props) => {
                 onChange={messageChangeHandler}
               />
             </FloatingLabel>
-            {/* <Form.Control as="textarea" placeholder="Leave a comment here" /> */}
+  
           </Card.Body>
           <Button variant="primary" type="submit">
             Send

@@ -10,14 +10,14 @@ import { composeActions } from "../Store/ComposeVisible";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { db } from "../WelcomePage/firebaseCode";
-import { collection, getDocs,  onSnapshot} from "firebase/firestore";
-
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { useHistory } from "react-router-dom";
 
 const Viewmail = (props) => {
-
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState([]);
-   useEffect(() => {
+  useEffect(() => {
     const collRef = collection(db, "emails");
     const unsubs = onSnapshot(collRef, (querySnapshot) => {
       const data = querySnapshot.docs.map((query) => {
@@ -26,8 +26,6 @@ const Viewmail = (props) => {
       setEmail(data);
     });
     return unsubs;
-  
-  
   }, []);
   const composeVisible = useSelector((state) => state.isVisible.showCompose);
 
@@ -36,6 +34,15 @@ const Viewmail = (props) => {
 
   const ComposeHandler = () => {
     dispatch(composeActions.composeIsVisible());
+  };
+
+  const sentmailbox = () => {
+    if(email.length === 0){
+      history.push('/no_mail_found')
+    }else{
+   history.push("/mail_detail");
+    }
+ 
   };
 
   return (
@@ -62,7 +69,10 @@ const Viewmail = (props) => {
             <SidebarOptions title="Unread" number="20" />
           </div>
           <div>
-            <SidebarOptions title="Sent" number={email.length} />
+            <Button variant="light" onClick={sentmailbox}>
+              {" "}
+              <SidebarOptions title="Sent" number={email.length} />
+            </Button>
           </div>
           <div>
             <SidebarOptions title="Span" number="100" />
@@ -74,7 +84,7 @@ const Viewmail = (props) => {
 
         <div>
           {email.map((data) => {
-            console.log(data)
+            console.log(data);
             return (
               <EmailList
                 key={data.id}

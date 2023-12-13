@@ -6,6 +6,7 @@ import Nvabars from "./components/Navbar/Navbar";
 
 import Viewmail from "./components/View_mail/Viewmail";
 import { useSelector } from "react-redux";
+import NoEmailFound from "./components/NoEmailFound/NoEmailFound";
 
 import MailDetail from "./components/MailDetail/MailDetail";
 
@@ -44,6 +45,9 @@ function App() {
         </Route>
         <Route path="/mail_detail">
           <MailDetail />
+        </Route>
+        <Route path="/no_mail_found">
+        <NoEmailFound/>
         </Route>
       </Switch>
     </div>
