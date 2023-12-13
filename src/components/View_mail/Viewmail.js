@@ -14,9 +14,13 @@ import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 
 const Viewmail = (props) => {
+
   const dispatch = useDispatch();
   const history = useHistory();
   const [email, setEmail] = useState([]);
+  const composeVisible = useSelector((state) => state.isVisible.showCompose);
+  const showDot = useSelector((state) => state.isVisible.showDotImage);
+ 
   useEffect(() => {
     const collRef = collection(db, "emails");
     const unsubs = onSnapshot(collRef, (querySnapshot) => {
@@ -27,7 +31,7 @@ const Viewmail = (props) => {
     });
     return unsubs;
   }, []);
-  const composeVisible = useSelector((state) => state.isVisible.showCompose);
+
 
   const src =
     "https://tse2.mm.bing.net/th?id=OIP.Z07pJmyXhkAXwjUvjS2vhwHaHa&pid=Api&P=0&h=180";
@@ -44,6 +48,8 @@ const Viewmail = (props) => {
     }
  
   };
+
+
 
   return (
     <Fragment>
@@ -66,7 +72,7 @@ const Viewmail = (props) => {
             <SidebarOptions title="Draft" number="14" />
           </div>
           <div>
-            <SidebarOptions title="Unread" number="20" />
+            <SidebarOptions title="Unread" number='1'/>
           </div>
           <div>
             <Button variant="light" onClick={sentmailbox}>
